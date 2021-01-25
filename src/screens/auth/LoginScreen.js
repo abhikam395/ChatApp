@@ -6,9 +6,25 @@ import AuthLink from './../../components/common/AuthLinkComponent';
 
 export default class LoginScreen extends Component{
 
+    verifyCredential({email, password}){
+        console.log(1 + "  " + password)
+        if(!email.includes('@gmail.com') || email.length < 12)
+            return false;
+        if(password.length < 5)
+            return false;
+        return true;
+    }
+
     submit(){
-        let email = document.getElementById('login-email');
-        let password = document.getElementById('login-password');
+        let email = document.getElementById('login-email').value;
+        let password = document.getElementById('login-password').value;
+
+        if(this.verifyCredential({email: email, password: password})){
+            
+        }
+        else{
+            console.log('Check your inputs')
+        }
     }
 
     render(){
@@ -25,7 +41,11 @@ export default class LoginScreen extends Component{
                         <label className="login-label-password">Password</label>
                         <input id="login-password" className="login-input" type="password"/>
                     </div>
-                    <input className="login-input-submit" id="login-submit" type="button" value="Submit"/>
+                    <input className="login-input-submit" 
+                        id="login-submit" 
+                        type="button" 
+                        value="Submit"
+                        onClick={this.submit.bind(this)}/>
                 </form>
             </div>
         )

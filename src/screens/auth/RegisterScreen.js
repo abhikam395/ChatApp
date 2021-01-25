@@ -6,6 +6,30 @@ import AuthLink from './../../components/common/AuthLinkComponent';
 
 export default class RegisterScreen extends Component{
 
+    verifyCredential({name, email, password}){
+        console.log(1 + "  " + password)
+        if(name.length < 3)
+            return false;
+        if(!email.includes('@gmail.com') || email.length < 12)
+            return false;
+        if(password.length < 5)
+            return false;
+        return true;
+    }
+
+    submit(){
+        let name = document.getElementById('register-name').value;
+        let email = document.getElementById('register-email').value;
+        let password = document.getElementById('register-password').value;
+
+        if(this.verifyCredential({name: name, email: email, password: password})){
+            // console.log('Check your inputs')
+        }
+        else{
+            console.log('Check your inputs')
+        }
+    }
+
     render(){
         return (
             <div className="register-container register-container--size register-container--theme">
@@ -25,7 +49,7 @@ export default class RegisterScreen extends Component{
                         <input id="register-password" className="register-input" type="password"/>
                     </div>
                     <input className="register-input-submit" id="register-submit" type="button" 
-                        value="Submit"/>
+                        value="Submit" onClick={this.submit.bind(this)}/>
                 </form>
             </div>
         )

@@ -1,0 +1,31 @@
+.user-item{
+    margin: 20px 0;
+    box-shadow: 1px 1px 2px 2px lightgray;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    &--size{
+        height: 120px;
+    }
+
+    &--theme{
+        // background-color: orange;
+    }
+
+    &:hover{
+        transform: translateY(2px);
+        transition: transform 1s;
+    }
+}
+
+.user{
+    &-image{
+        margin: 0px 20px;
+    }
+
+    &-name{
+        font-size: 18px;
+        font-weight: normal;
+    }
+}
