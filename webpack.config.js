@@ -1,4 +1,4 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
         historyApiFallback:true
     },
     plugins: [
-        new MiniCssExtractPlugin(),
+        // new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'assets/index.html'
@@ -24,7 +24,7 @@ module.exports = {
       rules: [
         {
           test: /\.css$/i,
-          use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader'],
+          use: ['style-loader', 'css-loader'],
         },
         {
             test: /\.(png|jpe?g|gif)$/i,
