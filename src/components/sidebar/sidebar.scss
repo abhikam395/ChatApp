@@ -1,0 +1,45 @@
+.sidebar{
+    position: fixed;
+    border-top: lightgray solid 2px;
+
+    &--size{
+        height: 100%;
+        width: 20%;
+    }
+
+    &--theme{
+        background-color: #ffc107;
+    }
+
+    &__list{
+        overflow: hidden;
+        padding-top: 20px;
+
+        &-item{
+            margin: 2px 5px;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            border: none;
+
+            &:first-child{
+                background-color: white;
+                color: #ffc107;
+                border: 2px solid black;
+            }
+
+            &:hover{
+                color: black;
+            }
+            
+            &--size{
+                width: auto;
+                height: 50px;
+                
+            }
+        }
+    }
+}

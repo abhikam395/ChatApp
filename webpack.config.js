@@ -2,18 +2,18 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    cache: true,
     entry: './src/main.js',
     output: {
         path: __dirname + '/dist',
         filename: 'bundle.js',
-        publicPath: '/'
+        publicPath: "/"
     },
     mode: 'development',
     devServer: {
-        inline: false,
-        contentBase: "./dist",
-        historyApiFallback:true
-    },
+      historyApiFallback: true
+  },
+
     plugins: [
         // new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({

@@ -11,12 +11,15 @@ import HomeScreen from './../screens/home/HomeScreen';
  */
 export default function() {
    return (
-       <BrowserRouter>
+       <BrowserRouter >
             <Switch>
-                <Route path="/" exact component={HomeScreen}/>
                 <Route path="/login" component={LoginScreen}/>
                 <Route path="/register" component={RegisterScreen}/>
                 <Route path="/users" component={UsersScreen}/>
+                <Route path="/*" exact component={HomeScreen}/>
+                <Route path="*">
+                    <h1>Route not found</h1>
+                </Route>
             </Switch>
        </BrowserRouter>
    )

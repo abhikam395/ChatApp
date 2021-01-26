@@ -1,0 +1,13 @@
+.row{
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 70px);
+}
+
+.left{
+    flex: 20%;
+}
+
+.right{
+    flex: 80%;
+}
