@@ -3,9 +3,7 @@ import { render } from 'react-dom';
 
 import './../public/stylesheets/style.css';
 
-import Router from './common/Router';
-
 render(
-    <Router></Router>, 
+    <h1>sdfsdf</h1>,
     document.getElementById('app')
 );
