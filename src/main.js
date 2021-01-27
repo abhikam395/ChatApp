@@ -1,9 +1,16 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React, { Component, Fragment } from 'react';
 
-import './../public/stylesheets/style.css';
+import Router from './common/router';
+import NavbarComponent from './components/navbarcomponent';
 
-render(
-    <h1>sdfsdf</h1>,
-    document.getElementById('app')
-);
+export default class Main extends Component{
+
+    render(){
+        return(
+            <Fragment>
+                <NavbarComponent/>
+                <Router></Router>
+            </Fragment>
+        )
+    }
+}

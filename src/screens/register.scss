@@ -1,0 +1,140 @@
+@import './../../public/stylesheets/common.scss';
+
+.register{
+    display: flex;
+    align-items: center;
+
+    &--size{
+        width: 100%;
+        height: calc(100vh - 70px);
+    }
+
+    &__container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        box-shadow: 2px 2px 10px lightgray;
+
+        &--size{
+            width: 500px;
+            min-height: 60vh;
+        }
+
+        &--theme{
+            // background-color: royalblue;
+        }
+    }
+
+    &__form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+
+        &--size{
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    &__input{
+        margin-top: 30px;
+        border: 2px solid $yellow;
+        padding: 20px;
+
+        &--size{
+            height: 50px;
+            width: 80%;
+
+        }
+    }
+
+    &__button{
+        cursor: pointer;
+        margin-top: 50px;
+        border: none;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &--size{
+            height: 50px;
+            width: 80%;
+        }
+
+        &--theme{
+            background-color: $yellow;
+        }
+    }
+
+    p{
+        margin-top: 20px;
+        color: gray;
+    }
+
+    &__link{
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        color: $yellow;
+        margin-left: 5px;
+    }
+}
+
+.circle{
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    position: fixed;
+}
+
+.large{
+    background: url('./../../src/assets/images/large-circle.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    right: -45px;
+    top: 200px;
+    animation: move 3s infinite;
+}
+
+.medium{
+    background: url('./../../src/assets/images/large-circle.png');
+    width: 75px;
+    height: 75px;
+    background-size: contain;
+    right: -35px;
+    animation: move 3s infinite;
+}
+
+.small{
+    width: 50px;
+    height: 50px;
+    background: url('./../../src/assets/images/small-circle.png');
+    background-size: contain;
+    right: -15px;
+    bottom: 100px;
+    animation: move 3s infinite;
+}
+
+@keyframes move{
+    from{
+        transform: translateX(0px);
+    }
+
+    50%{
+        transform: translateX(-10px);
+    }
+
+    to{
+        transform: translateX(0px);
+    }
+}
+
+::placeholder{
+    font-size: 12px;
+}
