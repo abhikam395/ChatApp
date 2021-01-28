@@ -1,0 +1,58 @@
+.chat-area{
+    margin-top: 0px;
+
+    &--size{
+        width: 100%;
+        height: calc(100vh - 70px);
+    }
+
+    &__container{
+        margin: auto;
+        
+        &--size{
+            width: 60%;
+            height: 100%;
+        }
+    }
+
+    &__image{
+        border-radius: 25px;
+        background-color: grey;
+        padding: 10px;
+
+        &--size{
+            height: 50px;
+            width: 50px;
+        }
+    }
+
+    &__header{
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+
+        &--size{
+            height: 60px;
+            width: 100%;
+        }
+    }
+
+    &__name{
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: 10px;
+    }
+
+    &__time{
+        margin-left: auto;
+        color: grey;
+        font-size: 12px;
+    }
+}
+
+.chat__list{
+
+    &--size{
+        
+    }
+}

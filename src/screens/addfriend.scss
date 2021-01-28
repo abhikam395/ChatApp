@@ -1,5 +1,7 @@
 .add-friend{
     padding: 20px;
+    display: flex;
+    flex-direction: column;
 
     &--size{
         width: 100%;
@@ -7,11 +9,23 @@
     }
 
     &__searchbar{
-        float: right;
+        align-self: flex-end;
+        
 
         &--size{
             width: 40%;
             height: auto;
         }
+    }
+}
+
+.user__list{
+    margin-top: 20px;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+
+    &--size{
+
     }
 }

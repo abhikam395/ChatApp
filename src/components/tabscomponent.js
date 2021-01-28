@@ -16,7 +16,6 @@ export default class TabsComponent extends Component{
             ],
             alreadySelectedTab: Element
         }
-        console.log(this.props.history  )
     }
 
     componentDidMount(){

@@ -5,8 +5,8 @@ import ChatComponent from './../components/chatComponent';
 
 export default class RecentChatScreen extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             chats: [
                 {id: 1, name: 'Rahul', lastmessage: 'Hello, How are you?', timestamp: '10 mins ago'},
@@ -20,7 +20,7 @@ export default class RecentChatScreen extends Component{
 
     getRecentChats(chats){
         return chats.map((chat) => {
-            return <ChatComponent chat={chat} key={chat.id}/>
+            return <ChatComponent chat={chat} key={chat.id} {...this.props}/>
         })
     }
 

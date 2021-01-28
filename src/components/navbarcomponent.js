@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './navbar.scss';
 
 export default class NavbarComponent extends Component{
@@ -6,9 +7,9 @@ export default class NavbarComponent extends Component{
     render(){
         return (
            <nav className="navbar navbar--size navbar--theme">
-               <a href="/" className="navbar__name">
+               <Link to="/" className="navbar__name">
                    ChatApp
-               </a>
+               </Link>
            </nav>
         )
     }
