@@ -1,0 +1,12 @@
+.home{
+
+    &__container{
+        margin: auto;
+        padding: 50px 0;
+
+        &--size{
+            width: 80%;
+            height: calc(100vh - 70px);
+        }
+    }
+}
