@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './onlineFriend.scss';
 
-export default class AddFriendScreen extends Component{
+export default class OnlineFriendScreen extends Component{
 
     render(){
         return(
             <div>
-                AddFriendScreen
+                OnlineFriendScreen
             </div>
         )
     }

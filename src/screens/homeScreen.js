@@ -7,7 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 import RecentChatScreen from './recentchatScreen';
 import FriendsScreen from './friendsScreen';
 import OnlineFriendScreen from './onlineFriendScreen';
-import AddFriendScreen from './onlineFriendScreen';
+import AddFriendScreen from './addFriendScreen';
 
 export default class HomeScreen extends Component{
 

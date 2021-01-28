@@ -1,0 +1,20 @@
+.friends{
+    list-style: none;
+
+    &--size{
+        
+    }
+
+    &--theme{
+
+    }
+
+    &__list{
+        display: flex;
+        flex-wrap: wrap;
+
+        &--size{
+            // width: 30%;
+        }
+    }
+}

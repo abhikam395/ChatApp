@@ -9,9 +9,9 @@ export default function router(){
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/*" exact component={HomeScreen}/>
                 <Route path="/login" component={LoginScreen}/>
                 <Route path="/register" component={RegisterScreen}/>
+                <Route path="/*" exact component={HomeScreen}/>
             </Switch>
         </BrowserRouter>
     )

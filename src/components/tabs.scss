@@ -1,6 +1,8 @@
 @import './../../public/stylesheets/common.scss';
 
 .tabs{
+    position: sticky;
+    top: 0px;
     display: flex;
     align-items: center;
     list-style: none;
@@ -13,7 +15,7 @@
     }
 
     &--theme{
-        
+        background-color: white;
     }
 }
 
