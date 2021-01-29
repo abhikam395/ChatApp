@@ -6,6 +6,7 @@
     left: 50%;
     bottom: 40px;
     transform: translate(-50%, 0);
+    border: none;
 
     &--size{
         width: 60%;
@@ -44,6 +45,7 @@
 
 .row{
     display: flex;
+    border: none;
 }
 
 @media only screen and (max-width: 1200px) {
