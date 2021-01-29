@@ -1,0 +1,32 @@
+.chat-area{
+
+    &__chat{
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+
+        &--size{
+            width: auto;
+        }
+    }
+
+    &__receive{
+        box-shadow: 1px 1px 5px 0px lightgray;
+
+        &--size{
+            width: auto;
+            height: 60px;
+        }
+    }
+
+    &__send{
+        box-shadow: 1px 1px 5px 0px lightgray;
+        margin-left: auto;
+
+        &--size{
+            width: auto;
+            height: 60px;
+        }
+    }
+}

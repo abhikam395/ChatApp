@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
 import './chatarea.scss';
 
+import ChatAreaChat from './../components/chatAreaChat';
+
 export default class ChatAreaScreen extends Component {
 
     constructor(){
         super();
         this.state = {
             chats: [
-                {}
+                {id: 1, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 2, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 3, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 4, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 5, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 6, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 7, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 8, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 9, message: 'Hello, how are you?', time: '10min ago'},
             ]
         }
+    }
+
+    getChatMessages(chats){
+        return chats.map((chat) => {
+            return <ChatAreaChat key={chat.id} chat={chat}/>
+        })
     }
 
     render(){
@@ -22,7 +38,7 @@ export default class ChatAreaScreen extends Component {
                         <span className="chat-area__time">5min ago</span>
                     </header>
                     <ul className="chat__list chat__list--size">
-
+                        {this.getChatMessages(this.state.chats)}
                     </ul>
                 </div>
             </div>
