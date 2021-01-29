@@ -1,0 +1,99 @@
+@import './../../public/stylesheets/common.scss';
+
+.messageinput{
+    position: fixed;
+    margin-left: auto;
+    left: 50%;
+    bottom: 40px;
+    transform: translate(-50%, 0);
+
+    &--size{
+        width: 60%;
+        height: 60px;
+    }
+
+    &__message{
+        border-radius: 30px;
+        border: 2px solid $yellow;
+        padding-left: 20px;
+
+        &--size{
+            width: 90%;
+            height: 60px;
+        }
+    }
+
+    &__button{
+        cursor: pointer;
+        border-radius: 30px;
+        height: 60px;
+        width: 60px;
+        background-color: $yellow;
+        margin-left: auto;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+::placeholder{
+    color: grey;
+    font-size: 12px;
+}
+
+.row{
+    display: flex;
+}
+
+@media only screen and (max-width: 1200px) {
+    /* tablets and desktop */
+    .messageinput{
+        &--size{
+            width: 80%;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    /* phones */
+    .messageinput{
+        &--size{
+            width: 90%;
+        }
+
+        &__button{
+            height: 50px;
+            width: 50px;
+        }
+
+        &__message{
+            margin-right: 5px;
+            &--size{
+                height: 50px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+    /* portrait phones */
+    .messageinput{
+        &--size{
+            width: 90%;
+        }
+
+        &__button{
+            height: 50px;
+            width: 50px;
+        }
+
+        &__message{
+            margin-right: 5px;
+
+            &--size{
+                height: 50px;
+            }
+        }
+    }
+}

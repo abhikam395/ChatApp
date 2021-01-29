@@ -1,9 +1,8 @@
 .chat-area{
-    margin-top: 0px;
 
     &--size{
         width: 100%;
-        height: calc(100vh - 70px);
+        height: auto;
     }
 
     &__container{
@@ -27,7 +26,7 @@
     }
 
     &__header{
-        margin-top: 50px;
+        margin-top: 20px;
         display: flex;
         align-items: center;
 
@@ -43,8 +42,8 @@
         margin-left: 10px;
     }
 
-    &__time{
-        margin-left: auto;
+    &__message-time{
+        // margin-left: auto;
         color: grey;
         font-size: 12px;
     }
@@ -52,9 +51,61 @@
 
 .chat__list{
     list-style: none;
+    padding-bottom: 120px;
+    margin-top: 20px;
 
     &--size{
         width: 100%;
         height: auto;
+    }
+
+    &--theme{
+        
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    /* tablets and desktop */
+    .chat-area{
+        // background-color: gainsboro;
+    }
+}
+
+
+@media only screen and (max-width: 1200px) {
+    /* tablets and desktop */
+    .chat-area{
+
+        &__container{
+            &--size{
+                width: 80%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    /* phones */
+    .chat-area{
+
+        &__container{
+            &--size{
+                width: 90%;
+            }
+        }
+        
+    }
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+    /* portrait phones */
+    .chat-area{
+
+        &__container{
+            &--size{
+                width: 90%;
+            }
+        }
+        
     }
 }

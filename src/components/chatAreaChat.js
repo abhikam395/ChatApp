@@ -4,17 +4,20 @@ import './chatareachat.scss';
 export default class ChatAreaChat extends Component {
 
     getChat(chat){
-        if(chat.id % 2 == 0){
+        if(chat.id % 3 == 0){
             return (
                 <div className="chat-area__receive chat-area__receive--size">
-                    {chat.message}
+                    <p className="chat-area__message">{chat.message}</p>
+                    <span className="chat-area__time">{chat.time}</span>
                 </div>
             )
         }
         else{
             return (
                 <div className="chat-area__send chat-area__send--size">
-                    {chat.message}
+                    <p className="chat-area__message">{chat.message}</p>
+                    <span className="chat-area__message-time">{chat.time}</span>
+
                 </div>
             )
         }

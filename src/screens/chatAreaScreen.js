@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './chatarea.scss';
 
 import ChatAreaChat from './../components/chatAreaChat';
+import MessageInputComponent from './../components/messageInputComponent';
 
 export default class ChatAreaScreen extends Component {
 
@@ -18,6 +19,15 @@ export default class ChatAreaScreen extends Component {
                 {id: 7, message: 'Hello, how are you?', time: '10min ago'},
                 {id: 8, message: 'Hello, how are you?', time: '10min ago'},
                 {id: 9, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 10, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 11, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 12, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 13, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 14, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 15, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 16, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 17, message: 'Hello, how are you?', time: '10min ago'},
+                {id: 18, message: 'Hello, how are you?', time: '10min ago'},
             ]
         }
     }
@@ -37,10 +47,11 @@ export default class ChatAreaScreen extends Component {
                         <h5 className="chat-area__name">Abhishek</h5>
                         <span className="chat-area__time">5min ago</span>
                     </header>
-                    <ul className="chat__list chat__list--size">
+                    <ul className="chat__list chat__list--size chat__list--theme">
                         {this.getChatMessages(this.state.chats)}
                     </ul>
                 </div>
+                <MessageInputComponent/>
             </div>
         )
     }

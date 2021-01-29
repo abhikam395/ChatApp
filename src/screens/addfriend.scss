@@ -11,7 +11,6 @@
     &__searchbar{
         align-self: flex-end;
         
-
         &--size{
             width: 40%;
             height: auto;
@@ -24,8 +23,44 @@
     list-style: none;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
     &--size{
 
+    }
+}
+
+// @media only screen and (max-width: 1200px) {
+//     /* tablets and desktop */
+//     .friend{
+//         padding: 0px;
+//     }
+// }
+
+@media only screen and (max-width: 767px) {
+    /* phones */
+    .add-friend{
+        padding: 20px 5px;
+
+        &__searchbar{
+            &--size{
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+    /* portrait phones */
+    .add-friend{
+        padding: 20px 5px;
+
+        &__searchbar{
+            &--size{
+                width: 100%;
+                height: auto;
+            }
+        }
     }
 }

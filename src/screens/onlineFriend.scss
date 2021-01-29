@@ -13,3 +13,29 @@
         }
     }
 }
+
+
+@media only screen and (max-width: 767px) {
+    /* phones */
+    .online{
+        &__user{
+            &--size{
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+    /* portrait phones */
+
+    .online{
+        &__user{
+            &--size{
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+}
