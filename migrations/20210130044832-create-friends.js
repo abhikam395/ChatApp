@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Friends', {
@@ -11,9 +12,7 @@ module.exports = {
       followerId: {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: 'Users'
-          },
+          model: 'Users',
           key: 'id'
         },
         allowNull: false,
@@ -21,9 +20,7 @@ module.exports = {
       followeeId: {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: 'Users'
-          },
+          model: 'Users',
           key: 'id'
         },
         allowNull: false,
