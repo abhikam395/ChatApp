@@ -4,35 +4,29 @@ import './addfriend.scss';
 import SearchbarComponent from './../components/searchbarComponent';
 import UserComponent from './../components/userComponent';
 
-export default class AddFriendScreen extends Component{
+import { connect } from 'react-redux';
+import { getUsers } from './../apis/userapi';
 
-    constructor(){
-        super();
-        this.state = {
-            users: [
-                {id: 1, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 2, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 3, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 4, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 5, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 6, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 7, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 8, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 9, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 10, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 11, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 12, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 13, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 14, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 15, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 16, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 17, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-                {id: 18, name: 'Rohan', location: 'Dehradun, Uttrakhand'},
-            ]
-        }
+const mapStateToProps = (state) => {
+    console.log(state.userState);
+    return {
+        users: state.userState.users
+    };
+}
+
+class AddFriendScreen extends Component{
+
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount(){
+        getUsers();
     }
 
     getUserList(users){
+        if(!users.length)
+            return <div>Users not found</div>
         return users.map((user) => {
             return <UserComponent key={user.id} user={user}/>
         })
@@ -45,9 +39,11 @@ export default class AddFriendScreen extends Component{
                     <SearchbarComponent/>
                 </div>
                 <ul className="user__list user__list--size">
-                    {this.getUserList(this.state.users)}
+                    {this.getUserList(this.props.users)}
                 </ul>
             </div>
         )
     }
 }
+
+export default connect(mapStateToProps)(AddFriendScreen);

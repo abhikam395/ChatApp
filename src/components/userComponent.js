@@ -7,10 +7,10 @@ export default class UserComponent extends Component {
         let { user } = this.props;
 
         return(
-            <li class="user user--size">
+            <li className="user user--size">
                 <img className="user__image user__image--size"/>
                 <h4 className="user__name">{user.name}</h4>
-                <button class="button">FOLLOW</button>
+                <button className="button">FOLLOW</button>
             </li>
         )
     }

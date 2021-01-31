@@ -9,7 +9,7 @@ export default class SearchbarComponent extends Component {
         return(
             <form className="searchbar searchbar--size">
                 <Search className="searchbar__icon"/>
-                <input type="name" class="searchbar__input" 
+                <input type="name" className="searchbar__input" 
                     id="searchbar-user"
                     placeholder="Search User"></input>
 
