@@ -11,7 +11,6 @@ var authRouter = require('./routes/auth');
 var friendsRouter = require('./routes/friends');
 
 var app = express();
-app.use(cors())
 
 app.use(express.static('dist'));
 
@@ -20,6 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cors());
 
 // app.use('*', indexRouter);
 app.use('/api/v1/auth', authRouter);

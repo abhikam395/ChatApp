@@ -13,13 +13,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       // User.hasMany(models.Friends);
       User.belongsToMany(models.User, { 
-          as: 'friends', 
+          as: 'followers', 
           foreignKey: 'followerId', 
           through: models.Friends
         })
       
       User.belongsToMany(models.User, { 
-        as: 'userFriends', 
+        as: 'following', 
         foreignKey: 'followeeId', 
         through: models.Friends
       })

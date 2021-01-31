@@ -16,9 +16,9 @@ router.get('/', async function(req, res, next) {
     attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt']
   });
   if(users){
-    successResponse(res, {
+    successResponse(res, USER_FETCHED_MESSAGE, {
       users: users,
-    }, USER_FETCHED_MESSAGE)
+    })
   }
   else{
     errorResponse(res, {
@@ -39,12 +39,14 @@ router.get('/search', userSearch(), async function(req, res, next){
   })
 
   if(users.length){
-    successResponse(res, {
-      users: users
-    }, USER_FOUND_MESSAGE)
+    successResponse(res, 
+      USER_FOUND_MESSAGE,{
+        users: users
+      }
+    )
   }
   else{
-    successResponse(res, {} , USER_NOT_FOUND_MESSAGE)
+    successResponse(res, USER_NOT_FOUND_MESSAGE, {})
   }
 })
 

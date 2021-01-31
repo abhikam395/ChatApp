@@ -1,0 +1,22 @@
+.toast{
+    padding:20px 100px;
+    min-width: auto;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 1px 10px 0px lightgrey;
+    left: 20px;
+    bottom: 20px;
+}
+
+.success{
+    background-color: #64dd17;
+}
+
+.fail{
+    background-color: #f44336;
+}

@@ -5,7 +5,7 @@ module.exports.errorResponse = function(res, error){
     })
 }
 
-module.exports.successResponse = function(res, data, message){
+module.exports.successResponse = function(res, message, data){
     res.json({
         status: true,
         message: message,

@@ -19,7 +19,11 @@ router.post('/register', register(), function(req, res, next) {
   })
   .then(data => {
     let { id, name, email } = data;
-    successResponse(res, {id: id, name: name, email: email}, REGISTER_MESSAGE)
+    successResponse(res, REGISTER_MESSAGE, {
+      id: id, 
+      name: name, 
+      email: email
+    })
   })
   .catch(err => {
     errorResponse(res, {
@@ -44,12 +48,12 @@ router.post('/login', login(), async function(req, res, next){
     })
     if(user){
       let {id, name, email} = user;
-      successResponse(res, {
-        id: id,
-        name: name,
-        email: email
-      },
-      LOGIN_MESSAGE)
+      successResponse(res, 
+        LOGIN_MESSAGE, {
+          id: id,
+          name: name,
+          email: email
+      })
     }
     else{
       errorResponse(res, {
