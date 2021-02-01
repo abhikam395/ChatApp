@@ -7,9 +7,9 @@ export default class FriendComponent extends Component {
         let { friend } = this.props;
 
         return(
-            <li class="friend friend--size friend--theme">
-                <img class="friend__image friend__image--size"/>
-                <h5 class="friend__name">{friend.name}</h5>
+            <li className="friend friend--size friend--theme">
+                <img className="friend__image friend__image--size"/>
+                <h5 className="friend__name">{friend.name}</h5>
             </li>
         )
     }

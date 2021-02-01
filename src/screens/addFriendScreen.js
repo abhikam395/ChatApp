@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { getUsers } from './../apis/userapi';
 
 const mapStateToProps = (state) => {
-    console.log(state.userState);
     return {
         users: state.userState.users
     };

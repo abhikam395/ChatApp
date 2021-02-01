@@ -1,47 +1,43 @@
 import React, { Component } from 'react';
 import './friends.scss';
 
+import { connect } from 'react-redux';
+import { getFriends } from './../apis/friendapi';
 import FriendComponent from './../components/friendComponent';
 
-export default class FriendsScreen extends Component{
+const mapStateToProps = function(state){
+    return {
+        friends: state.friendState.friends,
+        self: state.authState.user
+    }
+}
 
-    constructor(){
-        super();
-        this.state = {
-            friends: [
-                {id: 1, name: 'Rahul'},
-                {id: 2, name: 'Rahul'},
-                {id: 3, name: 'Rahul'},
-                {id: 4, name: 'Rahul'},
-                {id: 5, name: 'Rahul'},
-                {id: 6, name: 'Rahul'},
-                {id: 7, name: 'Rahul'},
-                {id: 8, name: 'Rahul'},
-                {id: 9, name: 'Rahul'},
-                {id: 10, name: 'Rahul'},
-                {id: 11, name: 'Rahul'},
-                {id: 12, name: 'Rahul'},
-                {id: 13, name: 'Rahul'},
-                {id: 14, name: 'Rahul'},
-                {id: 15, name: 'Rahul'},
-                {id: 16, name: 'Rahul'}
-            ]
-        }
+class FriendsScreen extends Component{
+
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount(){
+        let user = JSON.parse(this.props.self);
+        getFriends(user.id);
     }
 
     getFriendsList(friends){
         return friends.map((friend) => {
-            return <FriendComponent friend={friend}/>
+            return <FriendComponent friend={friend} key={friend.id}/>
         })
     }
 
     render(){
         return(
-            <div class="friends friends--size">
+            <div className="friends friends--size">
                 <ul className="friends__list friends__list--size">
-                    { this.getFriendsList(this.state.friends) }
+                    { this.getFriendsList(this.props.friends) }
                 </ul>
             </div>
         )
     }
 }
+
+export default connect(mapStateToProps)(FriendsScreen);

@@ -2,12 +2,19 @@ import React, { Component, Fragment} from 'react';
 import './user.scss';
 
 import { followUser } from './../apis/friendapi';
+import { connect } from 'react-redux';
 import Toast from './../components/toasts/toast';
 
-export default class UserComponent extends Component {
+const mapStateToProps = function(state){
+    return {
+        self: state.authState.user
+    }
+}
 
-    constructor(){
-        super();
+class UserComponent extends Component {
+
+    constructor(props){
+        super(props);
         this.state = {
             apiCalled: false,
             status: false,
@@ -20,9 +27,10 @@ export default class UserComponent extends Component {
     }
 
     follow(followeeId){
-        followUser(2, followeeId)
+        let user = JSON.parse(this.props.self);
+        followUser(user.id, followeeId)
         .then(response => {
-            console.log(response.error)
+            console.log(response)
             this.setState({apiCalled: true});
             let {status, message, error} = response;
             if(status){
@@ -60,6 +68,7 @@ export default class UserComponent extends Component {
         }
         
         return(
+            
             <Fragment>
                 {showApiResponse()}
                 <li className="user user--size">
@@ -71,3 +80,5 @@ export default class UserComponent extends Component {
         )
     }
 }
+
+export default connect(mapStateToProps)(UserComponent);
