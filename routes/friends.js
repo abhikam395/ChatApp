@@ -15,20 +15,21 @@ const USER_NOT_FOUND_MESSAGE = 'User not found';
 router.get('/friends', async function(req, res, next){
     let { id } = req.query;
     console.log(id)
-    const friends = await User.findAll({
-        where: {
-           id: id
+    const friends = await Friend.findAll({
+        where: { 
+            followerId: id
         },
-        // include: [
-        //     {
-        //         model: User,
-        //         as: 'followers',
-        //     }
-        // ]
+        attributes: [],
+        include: [{
+            model: User,
+            as: 'followers',
+            attributes: ['id', 'name', 'email']
+        }]
     })
 
     if(friends){
-        successResponse(res, '', {friends: friends})
+        let friendsList = friends.map((friend) => friend.followers);
+        successResponse(res, '', {friends: friendsList})
     }
     else
         errorResponse(res, '', {message: 'Friends not found'})
