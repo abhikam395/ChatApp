@@ -8,13 +8,21 @@ import RecentChatScreen from './recentchatScreen';
 import FriendsScreen from './friendsScreen';
 import OnlineFriendScreen from './onlineFriendScreen';
 import AddFriendScreen from './addFriendScreen';
+import { io } from 'socket.io-client';
 
 export default class HomeScreen extends Component{
 
     constructor(props){
-        super(props)
+        super(props);
     }
-    
+
+    componentDidMount() {
+        const socket = io('http://localhost:3000');
+        socket.on('connect', function () {
+            console.log('connected')
+        })
+    }
+
     render(){
         return(
             <div className="home home--size home--theme">

@@ -6,6 +6,10 @@ import { register } from './../apis/authapi';
 
 export default class RegisterScreen extends Component{
 
+    constructor(props){
+        super(props);
+    }
+
     validate({name, email, password}){
         if(name.trim() == "" || name.length < 3)
             return false;
@@ -16,7 +20,7 @@ export default class RegisterScreen extends Component{
         return true;        
     }
 
-    register(event){
+    async register(event){
         event.preventDefault();
         let user = {};
         let name = document.getElementById('register-name').value;
@@ -26,7 +30,9 @@ export default class RegisterScreen extends Component{
         user['email'] = email;
         user['password'] = password;
         if(this.validate(user)){
-            register(user);
+            await register(user);
+            let { history } = this.props;
+            history.push('/');
         }
         else console.log('Check your inputs')
     }
