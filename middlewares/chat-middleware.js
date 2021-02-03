@@ -24,6 +24,7 @@ module.exports.messageMiddleWare = function(){
 
 module.exports.chatMiddleware = function(){
     return function(req, res, next){
+        console.log(req.query)
         let {senderId, receiverId } = req.query;
         let errors = [];
         if (senderId == 0 || senderId == undefined)

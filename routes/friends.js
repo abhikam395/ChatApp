@@ -40,8 +40,6 @@ router.post('/follow', follow(), function(req, res, next) {
 
     let { followerId, followeeId } = req.query;
 
-    console.log('ABHISHEK');
-
     Friend.findOrCreate({
         where: {
             followerId: followerId,

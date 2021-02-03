@@ -25,7 +25,7 @@ class FriendsScreen extends Component{
 
     getFriendsList(friends){
         return friends.map((friend) => {
-            return <FriendComponent friend={friend} key={friend.id}/>
+            return <FriendComponent friend={friend} key={friend.id} {...this.props}/>
         })
     }
 

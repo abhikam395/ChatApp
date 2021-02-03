@@ -8,21 +8,24 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      sender_id: {
+      groupId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-          key: 'id'
-        },
         allowNull: false,
+        references: {
+          model: 'Groups',
+          key: 'id'
+        }
       },
-      receiver_id: {
+      senderId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'Users',
           key: 'id'
-        },
-        allowNull: false,
+        }
+      },
+      content: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

@@ -25,6 +25,7 @@ export default class ChatAreaChat extends Component {
 
     render(){
         let { chat } = this.props;
+        console.log(chat)
 
         return(
             <li className="chat-area__chat chat-area__chat--size">

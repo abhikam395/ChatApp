@@ -1,14 +1,14 @@
-module.exports.errorResponse = function(res, error){
-    res.json({
-        status: false,
-        error: error
-    })
+module.exports.errorResponse = function(res, status, code, message){
+    res.status(status).json({
+        status: "error",
+        code: code,
+        message: message
+    });
 }
 
-module.exports.successResponse = function(res, message, data){
-    res.json({
-        status: true,
-        message: message,
-        data: data
+module.exports.successResponse = function(res, status, key, value){
+    res.send(status).json({
+        status: "ok",
+        [key]: value
     })
 }

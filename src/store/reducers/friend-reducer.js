@@ -7,7 +7,7 @@ const initialState = {
 function friendReducer(state = initialState, action){
     switch (action.type){
         case GET_FRIENDS: {
-            return Object.assign({}, {friends: action.data});
+            return Object.assign({}, state, {friends: action.data});
         }
     }
     return state;
