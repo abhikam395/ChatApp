@@ -1,13 +1,31 @@
 let { errorResponse } = require('./../utils/response');
 
-module.exports.follow = function(){
+module.exports.followMiddleware = function(){
     return function(req, res, next){
-        let { followerId, followeeId } = req.query;
-        if (followerId == 0 || followeeId == 0){
-            errorResponse(res, { message: 'Empty fields'})
+        console.log(2)
+        let { followerId, followeeId } = req.body;
+        console.log(req.body)
+
+        if (followerId == undefined || followerId == 0 ){
+            res.status(400).json({
+                status: 'error',
+                code: 'EmptyField',
+                message: 'You have missed followerId'
+            })
         }
-        else if(followerId == followeeId ){
-            errorResponse(res, { message: `You can't follow yourself` })
+        if(followeeId == undefined || followeeId == 0){
+            res.status(400).json({
+                status: 'error',
+                code: 'EmptyField',
+                message: 'You have missed followeeId'
+            })
+        }
+        if(followerId == followeeId ){
+            res.status(400).json({
+                status: 'error',
+                code: 'SelfFollow',
+                message:  "You can't follow yourself"  
+            })
         }
         else
             next();

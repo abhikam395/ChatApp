@@ -5,6 +5,7 @@ const User = require('./../models').User;
 var { errorResponse, successResponse } = require('./../utils/response');
 var { userSearch } = require('./../middlewares/user-middleware');
 var base = require('./../config/base.json');
+var Friend = require('./../models').Friends;
 
 const USER_FETCHED_MESSAGE = 'User fetched';
 const USERS_NOT_FOUND_MESSAGE = 'Users not found';
@@ -55,6 +56,34 @@ router.get('/search', userSearch(), async function(req, res, next){
       message: 'User not found'
     })
   }
+});
+
+/**
+ * get user friends
+ */
+router.get('/:id/friends', async function(req, res, next){
+  let { id } = req.params;
+  const user = await User.findOne({
+    where: {
+      id: id
+    },
+  });
+  if(user){
+    let friends = await user.getFriends();
+    friends = friends.map(friend => {return {id: friend.id, name: friend.name, email: friend.email }})
+    res.status(200).json({
+      status: 'ok',
+      friends: friends
+    })
+  }
+  else{
+    res.status(404).json({
+      status: 'error',
+      code: 'NotFound',
+      message: 'User not found'
+    })
+  }
 })
+
 
 module.exports = router;

@@ -19,7 +19,6 @@ const USER_NOT_FOUND = 'User not found';
 router.post('/', messageMiddleWare(), async function(req, res, next) {
 
     const { message, senderId, receiverId } = req.body;
-    console.log(senderId + ' ' + receiverId)
     const [ group, created ] = await Group.findOrCreate({
         where: {
             [Op.or]: [
@@ -38,26 +37,32 @@ router.post('/', messageMiddleWare(), async function(req, res, next) {
             userId: senderId
         }
     })
-    
-    Chat.create({
-        groupId: group.id,
-        senderId: senderId,
-        content: message
-    }).then(user => {
-        successResponse(res, MESSAGE_SENT)
-    }).catch(err => {
-        let { errno } = err.parent;
-        if(errno == 1452){
-            errorResponse(res, {
-                message: USER_NOT_FOUND
+    if(group){
+        let chat;
+        try{
+            chat = await Chat.create({
+                groupId: parseInt(group.id),
+                senderId: parseInt(senderId),
+                content: message
+            });
+        }catch(err){
+            res.status(400).json({
+                status: 'error',
+                message: 'Message not created'
             })
         }
-        else{
-            errorResponse(res, {
-                message: MESSAGE_FAILED
-            })
-        }
-    })
+        res.status(201).json({
+            status: 'ok',
+            message: 'Message sent'
+        })
+    }
+    else{
+        res.status(503).json({
+            status: 'error',
+            code: 'Server error',
+            message: 'Service not working'
+        })
+    }
 });
 
 // get chats

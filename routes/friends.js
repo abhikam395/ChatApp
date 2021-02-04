@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var { Op } = require('sequelize');
-var { follow } = require('./../middlewares/friend-middleware');
+var { followMiddleware } = require('./../middlewares/friend-middleware');
 var { successResponse, errorResponse } = require('./../utils/response');
 var Friend = require('./../models').Friends;
 var User = require('./../models').User;
@@ -11,71 +11,79 @@ const ALREADY_FOLLOWING_MESSAGE  = 'Already following';
 const UNABLE_TO_FOLLOW_MESSAGE = 'Unable to follow user';
 const USER_NOT_FOUND_MESSAGE = 'User not found';
 
+//follow user
+router.post('/follow', followMiddleware(), async function(req, res, next) {
 
-router.get('/friends', async function(req, res, next){
-    let { id } = req.query;
-    console.log(id)
-    const friends = await Friend.findAll({
-        where: { 
-            followerId: id
-        },
-        attributes: [],
-        include: [{
-            model: User,
-            as: 'followers',
-            attributes: ['id', 'name', 'email']
-        }]
-    })
+    let { followerId, followeeId } = req.body;
 
-    if(friends){
-        let friendsList = friends.map((friend) => friend.followers);
-        successResponse(res, '', {friends: friendsList})
+    let [friend, created] = [null, null];
+    try{
+        [friend, created] = await Friend.findOrCreate({
+            where: {
+                followerId: followerId,
+                followeeId: followeeId
+            },
+            default: {
+                followerId: followerId,
+                followeeId: followeeId
+            }
+        });
+    }catch(err){
+        res.status(404).json({
+            status: 'error',
+            code: 'NotFound',
+            message: 'User not found'
+        })
+    }
+    if(created){
+        res.status(201).json({
+            status: 'ok',
+            friend: friend
+        })
+    }
+    else if(friend){
+        res.status(400).json({
+            status: 'error',
+            code: 'AlreadyFollowing',
+            message: 'You have already followed'
+        })
+    }
+});
+
+router.delete('/unfollow', followMiddleware(), async function(req, res, next) {
+
+    let { followerId, followeeId } = req.body;
+    console.log(1)
+
+    let friend;
+    try{
+        friend = await Friend.destroy({
+            where: {
+                followerId: followerId,
+                followeeId: followeeId
+            }
+        });
+    }catch(err){
+        res.status(404).json({
+            status: 'error',
+            code: 'NotFound',
+            message: 'User not found'
+        })
+    }
+    if(friend){
+        console.log(friend)
+        res.status(200).json({
+            status: 'ok',
+            message: 'Unfollow successfully'
+        })
     }
     else
-        errorResponse(res, '', {message: 'Friends not found'})
-})
-
-//follow user
-router.post('/follow', follow(), function(req, res, next) {
-
-    let { followerId, followeeId } = req.query;
-
-    Friend.findOrCreate({
-        where: {
-            followerId: followerId,
-            followeeId: followeeId
-        },
-        default: {
-            followerId: followerId,
-            followeeId: followeeId
-        }
-    })
-    .then(data => {
-        let createdNewEntry = data[1]; 
-        if(createdNewEntry){
-            successResponse(res, 
-                START_FOLLOWING_MESSAGE, {
-                user: data[0],
-            })
-        }
-        else{
-            errorResponse(res, {
-                message: ALREADY_FOLLOWING_MESSAGE
-            })
-        }
-    })
-    .catch(err => {
-        if(err.parent.errno == 1452){
-            errorResponse(res, {
-                message: USER_NOT_FOUND_MESSAGE
-            })
-        }
-        else{
-            errorResponse(res, {
-                message: UNABLE_TO_FOLLOW_MESSAGE
-            })
-        }    
-    })
-});
+        res.status(404).json({
+            status: 'error',
+            code: 'NotFound',
+            message: 'User not found'
+        })
+    }
+);
 
 module.exports = router;

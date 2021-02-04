@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Chats, { foreignKey: 'senderId'});
       User.hasMany(models.Group, { foreignKey: 'userId'});
       User.hasMany(models.Group, { foreignKey: 'for'})
+
       User.belongsToMany(models.User, { 
           as: 'friends', 
           foreignKey: 'followerId',
@@ -24,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'following', 
         foreignKey: 'followeeId', 
         through: models.Friends
-      })
+      });
     }
   };
   User.init({

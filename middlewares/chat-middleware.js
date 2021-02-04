@@ -14,11 +14,16 @@ module.exports.messageMiddleWare = function(){
         if (senderId == 0 || senderId == undefined)
             errors.push('SenderId is empty');
         if (receiverId == 0 || receiverId == undefined)
-            errors.push('ReceivedId is empty')          
-        
+            errors.push('ReceivedId is empty')    
+
+        console.log(1)
         if(errors.length)
-            errorResponse(res, { errors: errors })
-        else next();    
+            res.status(400).json({
+                status: 'error',
+                code: 'InvalidFields',
+                messages: errors
+            })
+        else next();  
     }
 }
 
