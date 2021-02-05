@@ -29,7 +29,6 @@ module.exports.messageMiddleWare = function(){
 
 module.exports.chatMiddleware = function(){
     return function(req, res, next){
-        console.log(req.query)
         let {senderId, receiverId } = req.query;
         let errors = [];
         if (senderId == 0 || senderId == undefined)
@@ -38,7 +37,11 @@ module.exports.chatMiddleware = function(){
             errors.push('ReceivedId is empty')          
         
         if(errors.length)
-            errorResponse(res, { errors: errors })
+            res.status(400).json({
+                status: 'error',
+                code: 'InvalidFields',
+                message: errors
+            })
         else next();    
     }
 }

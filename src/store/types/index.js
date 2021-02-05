@@ -6,3 +6,9 @@ export const REMOVE_USER = "REMOVE_USER";
 export const ADD_USER = "ADD_USER";
 export const ADD_CHATS = "ADD_CHATS";
 export const POST_CHAT = "POST_CHAT";
+
+export const ADD_USER_INFO = "ADD_USER_INFO";
+export const REMOVE_USER_INFO = "REMOVE_USER_INFO";
+export const GET_TOKEN = "GET_TOKEN";
+export const GET_USER_INFO = "GET_USER_INFO";
+ 

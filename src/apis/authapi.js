@@ -1,21 +1,22 @@
 import store from './../../src/store';
 import { addUser } from './../../src/store/actions/auth-actions';
 import axios from 'axios';
-
-let api = 'http://localhost:3000/api/v1/auth/';
+import base from './../config/base.json';
 
 export function register({name, email, password}){
-    axios.post(api + 'register', null, {
-        params: {
+    axios.post(base.url + '/auth/register', null, {
+        data: {
             name: name,
             email: email,
             password: password
         }
     })
-    .then(response => response.data)
+    // .then(response => response.data)
     .then(response => {
+        console.log(response)
         if(response.status){
             let { id, name, email } = response.data;
+            console.log(response)
             store.dispatch(addUser({id: id, name: name, email: email}));
         }
     })
@@ -27,7 +28,7 @@ export function register({name, email, password}){
 
 
 export function login({email, password}){
-    axios.post(api + 'login', null, {
+    axios.post(base.url + '/auth/login', null, {
         params: {
             email: email,
             password: password
@@ -35,7 +36,7 @@ export function login({email, password}){
     })
     .then(response => response.data)
     .then(response => {
-        console.log(response)
+        console.log(1)
         if(response.status){
             let { id, name, email } = response.data;
             store.dispatch(addUser({id: id, name: name, email: email}));
@@ -43,6 +44,6 @@ export function login({email, password}){
     })
     .catch(function (error) {
         // handle error
-        console.log(error);
+        console.log(1);
     })
 }

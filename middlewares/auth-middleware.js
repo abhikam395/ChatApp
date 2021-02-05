@@ -43,8 +43,7 @@ module.exports.register = function(){
 module.exports.login = function(){
     return function(req, res, next){
         let errors  = [];
-        let {email, password } = req.body;
-        console.log(req.body)
+        let {email, password } = req.query;
         
         if(!email || !email.includes('@gmail.com')){
             
@@ -54,7 +53,7 @@ module.exports.login = function(){
                 errors.push('Your email does not contains @gmail.com'); 
         }
         if(!password || password.length < 5){
-            if(email == null || email == undefined)
+            if(password == null || password == undefined)
                 errors.push('Your password must not empty');
             else if(password.length < 5 )
                 errors.push('Your password length must be more than 4 characters');

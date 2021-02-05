@@ -6,6 +6,15 @@ import { login } from './../apis/authapi';
 
 export default class LoginScreen extends Component{
 
+    constructor(){
+        super();
+        this.state = {
+            errors: [
+                'Invalid input'
+            ]
+        }
+    }
+
     validate({email, password}){
         if(email.trim() == "" || !email.includes('@gmail.com'))
             return false;
@@ -24,10 +33,23 @@ export default class LoginScreen extends Component{
         if(this.validate(user)){
             login(user);
         }
-        else console.log('Check your inputs')
+        else {
+            
+        }
+    }
+
+    errorList(errors){
+        if(!errors.length)
+            return;
+        return <ul className="error__list">
+            {errors.map((error, index) => {
+                return <li className="error__item" key={index}>{error}</li>
+            })}
+        </ul>
     }
 
     render(){
+
         return(
             <div className="login login--size">
                 <div className="circle large"></div>
@@ -37,6 +59,7 @@ export default class LoginScreen extends Component{
                     login__container--size 
                     login__container--theme">
                     <form method="post" className="login__form login__form--size">
+                        { this.errorList(this.state.errors)}
                         <input type="email"
                             id="login-email"
                             className="login__input login__input--size" 

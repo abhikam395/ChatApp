@@ -48,7 +48,7 @@ router.post('/register', register(), async function(req, res, next) {
 });
 
 router.post('/login', login(), async function(req, res, next){
-  let { email, password } = req.body;
+  let { email, password } = req.query;
   let user;
   try{
     user = await User.findOne({
@@ -74,7 +74,7 @@ router.post('/login', login(), async function(req, res, next){
     res.status(404).json({
       status: 'error',
       code: 'Login invalid',
-      message: 'Please check your email or password'
+      message: ['Please check your email or password']
     })
   }
 });
