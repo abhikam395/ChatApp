@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './chatarea.scss';
 
-import { getChats } from './../apis/chatapi';
+import { fetchLastChats } from './../dummyapi/lastchatsapi';
 import { connect } from 'react-redux';
 
 import ChatAreaChat from './../components/chatAreaChat';
@@ -9,7 +9,7 @@ import MessageInputComponent from './../components/messageInputComponent';
 
 const mapStateToProps = function(state){
     return {
-        chats: state.chatState.chats
+        data: state.chatState
     }
 }
 
@@ -20,9 +20,8 @@ class ChatAreaScreen extends Component {
     }
 
     componentDidMount(){
-        let { user } = this.props.location.state;
         let { id } = JSON.parse(localStorage.getItem('user'));
-        getChats(id, user.id);
+        fetchLastChats(id);
     }
 
     getChatMessages(chats){
@@ -43,7 +42,7 @@ class ChatAreaScreen extends Component {
                         <span className="chat-area__time">5min ago</span>
                     </header>
                     <ul className="chat__list chat__list--size chat__list--theme">
-                        {this.getChatMessages(this.props.chats)}
+                        {this.getChatMessages(this.props.data.lastChats)}
                     </ul>
                 </div>
                 <MessageInputComponent/>

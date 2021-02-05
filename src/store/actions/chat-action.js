@@ -1,10 +1,8 @@
-import { ADD_CHATS, POST_CHAT } from './../types';
+import { ADD_LAST_CHATS } from './../types';
 
-export function addChats(chats){
+export function addLastChats(data){
     return {
-        type: ADD_CHATS,
-        data: {
-            chats: chats,
-        }
+        type: ADD_LAST_CHATS,
+        data: data,
     }
 }  
