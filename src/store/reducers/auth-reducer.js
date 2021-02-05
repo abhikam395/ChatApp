@@ -12,7 +12,7 @@ function authReducer(state = initialState, action){
     switch (action.type){
         case ADD_USER_INFO : {
             let { data } = action;
-            localStorage.setItem('user', data.user);
+            localStorage.setItem('user', JSON.stringify(data.user));
             localStorage.setItem('token', data.token);
             return Object.assign(state, {...data})
         }

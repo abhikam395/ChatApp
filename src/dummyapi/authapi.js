@@ -1,4 +1,5 @@
 const object = {
+    id: 1,
     name: 'Abhhishek',
     email: 'abhikam1525@gmail.com',
     password: '12345'
@@ -39,7 +40,7 @@ function registerRequest(user){
         return {
             status: 'ok',
             message: 'User loggedIn',
-            user: user
+            user: object
         }
     }    
 }
@@ -75,7 +76,7 @@ function loginRequest(user){
         return {
             status: 'ok',
             message: 'User loggedIn',
-            user: user
+            user: object
         }
     }    
 }

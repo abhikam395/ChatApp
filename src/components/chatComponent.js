@@ -9,7 +9,8 @@ export default class ChatComponent extends Component{
 
     openChatScreen(){
         let { history } = this.props;
-        history.push('/chat');
+        let user = JSON.parse(localStorage.getItem('user'));
+        history.push('/chat', { user: user });
     }
 
     render(){

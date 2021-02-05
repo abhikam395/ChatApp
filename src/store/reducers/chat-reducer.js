@@ -1,16 +1,16 @@
-import { ADD_LAST_CHATS, ADD_NEW_LAST_CHAT } from './../types';
+import { ADD_GROUP_CHATS } from './../types';
 
-const initialState = {  
+const initialState = {
     status: false,
     message: null,
-    lastChats: [],
+    chats: [],
     errors: []
 }
 
 function chatReducer(state = initialState, action){
     switch(action.type){
-        case ADD_LAST_CHATS: {
-            return Object.assign({}, state, {...action.data});
+        case ADD_GROUP_CHATS: {
+            return Object.assign({}, state, {...action.data})
         }
     }
     return state;

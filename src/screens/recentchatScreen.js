@@ -8,7 +8,7 @@ import ChatComponent from './../components/chatComponent';
 
 const mapStateToProps = function(state){
     return {
-        data: state.chatState,
+        data: state.lastChatsState,
     }
 }
 

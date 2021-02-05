@@ -10,6 +10,9 @@ export const POST_CHAT = "POST_CHAT";
 //last chats
 export const ADD_LAST_CHATS = "ADD_LAST_CHATS";
 
+//chats
+export const ADD_GROUP_CHATS = "ADD_GROUP_CHATS";
+
 //auth
 export const ADD_USER_INFO = "ADD_USER_INFO";
 export const REMOVE_USER_INFO = "REMOVE_USER_INFO";

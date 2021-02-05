@@ -3,10 +3,15 @@ import './chatareachat.scss';
 
 export default class ChatAreaChat extends Component {
 
-    getChat(chat){
-        if(chat.id % 3 == 0){
+    constructor(props){
+        super(props);
+    }
+
+    getChat(chat, selfId){
+        let { sender } = chat;
+        if(sender.id != selfId){
             return (
-                <div className="chat-area__receive chat-area__receive--size">
+                <div className="chat-area__left chat-area__left--size">
                     <p className="chat-area__message">{chat.message}</p>
                     <span className="chat-area__time">{chat.time}</span>
                 </div>
@@ -14,22 +19,20 @@ export default class ChatAreaChat extends Component {
         }
         else{
             return (
-                <div className="chat-area__send chat-area__send--size">
+                <div className="chat-area__right chat-area__right--size">
                     <p className="chat-area__message">{chat.message}</p>
                     <span className="chat-area__message-time">{chat.time}</span>
-
                 </div>
             )
         }
     }
 
     render(){
-        let { chat } = this.props;
-        console.log(chat)
+        let { chat, selfId } = this.props;
 
         return(
             <li className="chat-area__chat chat-area__chat--size">
-                {this.getChat(chat)}
+                {this.getChat(chat, selfId)}
             </li>
         )
     }
