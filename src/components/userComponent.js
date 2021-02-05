@@ -74,7 +74,7 @@ class UserComponent extends Component {
                 <li className="user user--size">
                     <img className="user__image user__image--size"/>
                     <h4 className="user__name">{user.name}</h4>
-                    <button className="button" onClick={this.follow.bind(this, user.id)}>FOLLOW</button>
+                    <button className="button">FOLLOW</button>
                 </li>
             </Fragment>
         )

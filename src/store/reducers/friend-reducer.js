@@ -1,16 +1,35 @@
-import { GET_FRIENDS } from '../types';
+import { ADD_FRIEND_LIST, ADD_ONLINE_FRIENDS } from '../types';
 
-const initialState = {
-    friends: []
+const initialFriendsState = {
+    status: false,
+    message: null,
+    friends: [],
+    errors: []
 }
 
-function friendReducer(state = initialState, action){
+const initialOnlineFriendsState = {
+    status: false,
+    message: null,
+    friends: [],
+    error: []
+}
+
+function friendReducer(state = initialFriendsState, action){
     switch (action.type){
-        case GET_FRIENDS: {
-            return Object.assign({}, state, {friends: action.data});
+        case ADD_FRIEND_LIST: {
+            return Object.assign({}, state, {...action.data});
         }
     }
     return state;
 }
 
-export default friendReducer;
+function onlineFriendReduer(state = initialOnlineFriendsState, action){
+    switch (action.type){
+        case ADD_ONLINE_FRIENDS: {
+            return Object.assign({}, state, {...action.data})
+        }
+    }
+    return state;
+}
+
+export default {friendsState :friendReducer, onlineFriendsState: onlineFriendReduer};

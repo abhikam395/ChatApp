@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 import './onlineFriend.scss';
 
+import { connect } from 'react-redux';
+import { fetchOnlineFriendList } from './../dummyapi/friendsapi';
 import OnlineuserComponent from './../components/onlineUserComponent';
 
-export default class OnlineFriendScreen extends Component{
+const mapStateToProps = function(state){
+    return {
+        friends: state.onlineFriendsState.friends
+    }
+}
 
-    constructor(){
-        super();
+class OnlineFriendScreen extends Component{
+
+    constructor(props){
+        super(props);
         this.state = {
-            users: [
-                {id: 1, name: 'Abhishek'},
-                {id: 2, name: 'Ayush'},
-                {id: 3, name: 'Abhay'},
-                {id: 4, name: 'Prashand'},
-                {id: 5, name: 'Aman'},
-                {id: 6, name: 'Akash'},
-                {id: 7, name: 'Shivansh'}
-            ]
+            user: localStorage.getItem('user')
         }
+    }
+
+    componentDidMount() {
+        let user = JSON.parse(this.state.user);
+        fetchOnlineFriendList(user.id);
     }
 
     getOnlineUsers(users){
@@ -30,9 +35,11 @@ export default class OnlineFriendScreen extends Component{
         return(
             <div className="online online--size">
                 <ul className="online__user online__user--size">
-                    {this.getOnlineUsers(this.state.users)}
+                    {this.getOnlineUsers(this.props.friends)}
                 </ul>
             </div>
         )
     }
 }
+
+export default connect(mapStateToProps)(OnlineFriendScreen);

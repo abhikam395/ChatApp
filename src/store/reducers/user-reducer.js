@@ -1,16 +1,16 @@
-import { GET_USERS, ADD_USERS } from '../types';
+import { ADD_USERS } from '../types';
 
 const initialState = {
-    users: []
+    status: false,
+    message: '',
+    users: [],
+    errors: []
 }
 
 function userReducer(state = initialState, action){
     switch (action.type){
-        case GET_USERS: {
-            return state.users;
-        }
         case ADD_USERS: {
-            return action.data;
+            return Object.assign({}, state, {...action.data});
         }
     }
     return state;

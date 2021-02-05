@@ -8,10 +8,9 @@ import chatReducer from './chat-reducer';
 
 const reducer = {
     userState: userReducer,
-    friendState: friendReducer,
     authState: authReducer,
     lastChatsState: lastChatReducer,
     chatsState: chatReducer
 }
 
-export default combineReducers(reducer);
+export default combineReducers(Object.assign({}, reducer, {...friendReducer}));

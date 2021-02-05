@@ -11,8 +11,8 @@ export default class SearchbarComponent extends Component {
                 <Search className="searchbar__icon"/>
                 <input type="name" className="searchbar__input" 
                     id="searchbar-user"
-                    placeholder="Search User"></input>
-
+                    placeholder="Search User"
+                    onChange={this.props.queryListener}/>
             </form>
         )
     }
