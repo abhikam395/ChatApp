@@ -1,26 +1,47 @@
 import React, { Component } from 'react';
+
+import { connect } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 import './register.scss';
 
-import { register } from './../apis/authapi';
+import { register } from './../dummyapi/authapi';
 
-export default class RegisterScreen extends Component{
+const mapStateToProps = function(state){
+    return {
+        data: state.authState
+    }
+}
+
+class RegisterScreen extends Component{
 
     constructor(props){
         super(props);
+        this.state = {
+            errors: []
+        }
     }
 
     validate({name, email, password}){
-        if(name.trim() == "" || name.length < 3)
+        let domain = email.substring(email.lastIndexOf('@'));
+        let errors = [];
+        if(name == undefined || name.length < 3)
+            errors.push('Name must be more than 2 characters')
+        if(email == undefined || domain != '@gmail.com')
+            errors.push('Check your email');
+        if(password == undefined || password.length < 4)
+            errors.push('Check your password')
+        if(errors.length){
+            console.log(errors.length)
+            this.setState({errors: errors})
             return false;
-        else if(email.trim() == "" || !email.includes('@gmail.com'))
-            return false;
-        else if(password.trim() == "" || password.length < 4)
-            return false;
-        return true;        
+        }
+        else{
+            return true;
+        }
     }
 
-    async register(event){
+    register(event){
         event.preventDefault();
         let user = {};
         let name = document.getElementById('register-name').value;
@@ -30,11 +51,30 @@ export default class RegisterScreen extends Component{
         user['email'] = email;
         user['password'] = password;
         if(this.validate(user)){
-            await register(user);
-            let { history } = this.props;
-            history.push('/');
+            //remove errors if there any
+            let { errors } = this.state;
+            if(errors.length)
+                this.setState({errors: []});
+            register(user);
+            let { data } = this.props;
+            if(data.status){
+                console.log(data.user)
+                let { history } = this.props;
+                history.push('/');
+            }
+            else
+                this.setState({errors: data.errors})
         }
-        else console.log('Check your inputs')
+    }
+
+    errorList(errors){
+        if(!errors.length)
+            return;
+        return <ul className="error__list">
+            {errors.map((error, index) => {
+                return <li className="error__item" key={index}>{error}</li>
+            })}
+        </ul>
     }
 
     render(){
@@ -47,6 +87,7 @@ export default class RegisterScreen extends Component{
                     register__container--size 
                     register__container--theme">
                     <form method="post" className="register__form register__form--size">
+                        { this.errorList(this.state.errors)}
                         <input type="name" 
                                 id="register-name"
                                 className="register__input register__input--size" placeholder="Name"/>
@@ -70,3 +111,5 @@ export default class RegisterScreen extends Component{
         )
     }
 }
+
+export default connect(mapStateToProps)(RegisterScreen);

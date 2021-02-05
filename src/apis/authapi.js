@@ -17,7 +17,7 @@ export function register({name, email, password}){
         if(response.status){
             let { id, name, email } = response.data;
             console.log(response)
-            store.dispatch(addUser({id: id, name: name, email: email}));
+            // store.dispatch(addUser({id: id, name: name, email: email}));
         }
     })
     .catch(function (error) {
@@ -39,7 +39,7 @@ export function login({email, password}){
         console.log(1)
         if(response.status){
             let { id, name, email } = response.data;
-            store.dispatch(addUser({id: id, name: name, email: email}));
+            // store.dispatch(addUser({id: id, name: name, email: email}));
         }
     })
     .catch(function (error) {

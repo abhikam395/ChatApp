@@ -1,9 +1,10 @@
 import { ADD_USER_INFO, REMOVE_USER_INFO, GET_TOKEN, GET_USER_INFO } from './../types';
 
 let initialState = {
-    logedIn: false,
+    status: false,
     user: null,
     token: null,
+    message: null,
     errors: null
 }
 

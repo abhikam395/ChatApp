@@ -1,26 +1,40 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './login.scss';
 
-import { login } from './../apis/authapi';
+import { login } from './../dummyapi/authapi';
 
-export default class LoginScreen extends Component{
+const mapStateToProps = function(state){
+    return {
+        data: state.authState
+    }
+}
 
-    constructor(){
-        super();
+class LoginScreen extends Component{
+
+    constructor(props){
+        super(props);
         this.state = {
-            errors: [
-                'Invalid input'
-            ]
+            errors: []
         }
     }
 
     validate({email, password}){
-        if(email.trim() == "" || !email.includes('@gmail.com'))
+        let domain = email.substring(email.lastIndexOf('@'));
+        let errors = [];
+        if(email == undefined || domain != '@gmail.com')
+            errors.push('Check your email');
+        if(password == undefined || password.length < 4)
+            errors.push('Check your password')
+        if(errors.length){
+            console.log(errors.length)
+            this.setState({errors: errors})
             return false;
-        else if(password.trim() == "" || password.length < 4)
-            return false;
-        return true;        
+        }
+        else{
+            return true;
+        }
     }
 
     login(event){
@@ -31,10 +45,19 @@ export default class LoginScreen extends Component{
         user['email'] = email;
         user['password'] = password;
         if(this.validate(user)){
+            //remove errors if there any
+            let { errors } = this.state;
+            if(errors.length)
+                this.setState({errors: []});
             login(user);
-        }
-        else {
-            
+            let { data } = this.props;
+            if(data.status){
+                console.log(data.user)
+                let { history } = this.props;
+                history.push('/');
+            }
+            else
+                this.setState({errors: data.errors})
         }
     }
 
@@ -82,3 +105,5 @@ export default class LoginScreen extends Component{
         )
     }
 }
+
+export default connect(mapStateToProps)(LoginScreen);

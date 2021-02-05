@@ -86,6 +86,20 @@
     }
 }
 
+.error{
+
+    &__list{
+        list-style: none;
+        color: red;
+        align-self: flex-start;
+        margin-left: 50px;
+    }
+
+    &__item{
+        
+    }
+}
+
 .circle{
     background-repeat: no-repeat;
     width: 100px;

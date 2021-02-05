@@ -1,15 +1,22 @@
-import { ADD_USER, REMOVE_USER } from './../types';
+import { ADD_USER_INFO, GET_USER_INFO, REMOVE_USER_INFO } from './../types';
 
-export function addUser(user){
+export function addUserInfo(user){
     return {
-        type: ADD_USER,
+        type: ADD_USER_INFO,
         data: user
     }
 }
 
-export function removeUser(){
+export function removeUserInfo(){
     return {
-        type: REMOVE_USER,
+        type: REMOVE_USER_INFO,
         data: user
     }
+}
+
+export function getUserInfo(){
+    // return {
+    //     type: GET_USER_INFO,
+
+    // }
 }
