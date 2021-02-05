@@ -4,12 +4,22 @@ import { Link } from 'react-router-dom';
 import './login.scss';
 
 import { login } from './../dummyapi/authapi';
+import store from './../store';
+import { addUserInfo } from './../store/actions/auth-actions';
 
-const mapStateToProps = function(state){
+let mapStateToProps = function(state){
     return {
-        data: state.authState
+        data: state.authState,
     }
 }
+
+let mapDispatchToProps = function(dispatch){
+    return {
+        addUserInfo: function(data){
+            dispatch(addUserInfo(data))
+        }
+    }
+} 
 
 class LoginScreen extends Component{
 
@@ -28,7 +38,6 @@ class LoginScreen extends Component{
         if(password == undefined || password.length < 4)
             errors.push('Check your password')
         if(errors.length){
-            console.log(errors.length)
             this.setState({errors: errors})
             return false;
         }
@@ -37,27 +46,36 @@ class LoginScreen extends Component{
         }
     }
 
-    login(event){
-        event.preventDefault();
+    getUserValue(){
         let user = {};
         let email = document.getElementById('login-email').value;
         let password = document.getElementById('login-password').value;
         user['email'] = email;
         user['password'] = password;
+        return user;
+    }
+
+    async login(event){
+        event.preventDefault();
+        this.setState({errors: []})
+        let user = this.getUserValue();
+
         if(this.validate(user)){
             //remove errors if there any
-            let { errors } = this.state;
-            if(errors.length)
-                this.setState({errors: []});
-            login(user);
-            let { data } = this.props;
-            if(data.status){
-                console.log(data.user)
-                let { history } = this.props;
-                history.push('/');
+            let response = null;
+            try{
+                response = await login(user);
+                let { status } = response;
+                if(status == 'ok'){
+                    this.props.addUserInfo(response);
+                    let { history } = this.props;
+                    history.push('/');
+                }
+                else throw response;
+                
+            }catch(error){
+                this.setState({errors: error.errors});
             }
-            else
-                this.setState({errors: data.errors})
         }
     }
 
@@ -106,4 +124,4 @@ class LoginScreen extends Component{
     }
 }
 
-export default connect(mapStateToProps)(LoginScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import ChatAreaChat from './../components/chatAreaChat';
 import MessageInputComponent from './../components/messageInputComponent';
+import { Redirect } from 'react-router-dom';
 
 const mapStateToProps = function(state){
     return {
@@ -18,26 +19,28 @@ class ChatAreaScreen extends Component {
     constructor(props){
         super(props);
         this.state = {
-            user: this.props.location.state.user
+            user: JSON.parse(localStorage.getItem('user')),
         }
+
     }
 
     componentDidMount(){
-        let { id } = JSON.parse(localStorage.getItem('user'));
         let { user } = this.state;
-        fetchChats(id, user.id);
-        console.log(123)
+        let { sender } = this.props.location.state;
+        fetchChats(user.id, sender.id);
     }
 
     getChatMessages(chats){
-        let { id } = this.state.user;
+        let { user } = this.state;
         return chats.map((chat) => {
-            return <ChatAreaChat key={chat.id} chat={chat} selfId={id}/>
+            return <ChatAreaChat key={chat.id} chat={chat} selfId={user.id}/>
         })
     }
 
     render(){
-        let { user } = this.state;
+        let user = localStorage.getItem('user');
+        if(user == undefined || user == null)
+            return <Redirect to="/login"/>
 
         return(
             <div className="chat-area chat-area--size">

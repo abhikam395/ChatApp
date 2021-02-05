@@ -9,10 +9,10 @@ export default class TabsComponent extends Component{
         super(props);
         this.state = {
             tabs: [
-                {id: 1, name: 'RECENT', route: '/'},
-                {id: 2, name: 'FRIENDS', route: '/friends'},
-                {id: 3, name: 'ADD FRIEND', route: '/addfriend'},
-                {id: 4, name: 'ONLINE', route: '/online'},
+                {name: 'RECENT', route: '/', id: "recent"},
+                {name: 'FRIENDS', route: '/friends', id: "friends"},
+                {name: 'ADD FRIEND', route: '/addfriend', id: "addfriend"},
+                {name: 'ONLINE', route: '/online', id: "online"},
             ],
             alreadySelectedTab: Element
         }
@@ -37,11 +37,12 @@ export default class TabsComponent extends Component{
     }
 
     getTabItems(tabs){
-        return tabs.map((tab) => {
-            return <li key={tab.id} 
-                className={`tab tab--size tab--theme ${tab.id == 1 ? 'active': ''}`}
-                onClick={this.selectTab.bind(this, tab.route)}>
-                    {tab.name}
+        return tabs.map((tab, index) => {
+            return <li key={index} 
+                    id={tab.id}
+                    className={`tab tab--size tab--theme ${index == 0 ? 'active': ''}`}
+                    onClick={this.selectTab.bind(this, tab.route)}>
+                        {tab.name}
                 </li>
         })
     }

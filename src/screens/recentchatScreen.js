@@ -16,10 +16,14 @@ class RecentChatScreen extends Component{
 
     constructor(props){
         super(props);
+        this.state = {
+            user: localStorage.getItem('user')
+        }
     }
 
     componentDidMount(){
-        fetchLastChats(2)
+        let user = this.state;
+        fetchLastChats(user.id)
     }
 
     getRecentChats(chats){

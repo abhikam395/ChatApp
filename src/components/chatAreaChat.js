@@ -9,6 +9,7 @@ export default class ChatAreaChat extends Component {
 
     getChat(chat, selfId){
         let { sender } = chat;
+        console.log(sender.id + '  ' + selfId)
         if(sender.id != selfId){
             return (
                 <div className="chat-area__left chat-area__left--size">

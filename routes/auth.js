@@ -11,7 +11,7 @@ const WRONG_PASSWORD_MESSAGE = 'Wrong password please check your password again'
 
 //regsiter user
 router.post('/register', register(), async function(req, res, next) {
-  let { name, email, password } =  req.body;
+  let { name, email, password } =  req.query;
   let user;
   try{
     user = await User.create({
@@ -23,8 +23,9 @@ router.post('/register', register(), async function(req, res, next) {
     res.status(400).json({
       status: 'error',
       code: 'Already exist',
-      message: `${email} already exist`
+      errors: [`${email} already exist`]
     })
+    return;
   }
   if(user){
     let { id, name, email } = user;
@@ -42,7 +43,7 @@ router.post('/register', register(), async function(req, res, next) {
     res.status(503).json({
       status: 'error',
       code: 'Server error',
-      message: 'Register service not working'
+      errors: ['Register service not working']
     })
   }
 });

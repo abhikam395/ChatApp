@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "build": "webpack",
-    "start:dev": "webpack-dev-server"
+    "start:dev": "webpack-dev-server",
+    "server": "http-server ./dist"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",

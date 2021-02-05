@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
-
-import { connect } from 'react-redux';
-
-import { Link } from 'react-router-dom';
 import './register.scss';
 
+import { addUserInfo } from './../store/actions/auth-actions';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { register } from './../dummyapi/authapi';
 
-const mapStateToProps = function(state){
+let mapStateToProps = function(state){
     return {
-        data: state.authState
+        data: state.authState,
     }
 }
+
+let mapDispatchToProps = function(dispatch){
+    return {
+        addUserInfo: function(data){
+            dispatch(addUserInfo(data))
+        }
+    }
+} 
 
 class RegisterScreen extends Component{
 
@@ -32,7 +39,6 @@ class RegisterScreen extends Component{
         if(password == undefined || password.length < 4)
             errors.push('Check your password')
         if(errors.length){
-            console.log(errors.length)
             this.setState({errors: errors})
             return false;
         }
@@ -41,8 +47,7 @@ class RegisterScreen extends Component{
         }
     }
 
-    register(event){
-        event.preventDefault();
+    getUserValue(){
         let user = {};
         let name = document.getElementById('register-name').value;
         let email = document.getElementById('register-email').value;
@@ -50,31 +55,45 @@ class RegisterScreen extends Component{
         user['name'] = name;
         user['email'] = email;
         user['password'] = password;
+        return user;
+    }
+
+    async register(event){
+        event.preventDefault();
+        this.setState({errors: []})
+        let user = this.getUserValue();
+
         if(this.validate(user)){
             //remove errors if there any
-            let { errors } = this.state;
-            if(errors.length)
-                this.setState({errors: []});
-            register(user);
-            let { data } = this.props;
-            if(data.status){
-                console.log(data.user)
-                let { history } = this.props;
-                history.push('/');
+            let response = null;
+            try{
+                response = await register(user);
+                let { status } = response;
+                if(status == 'ok'){
+                    this.props.addUserInfo(response);
+                    let { history } = this.props;
+                    history.push('/');
+                }
+                else throw response;
+                
+            }catch(error){
+                this.setState({errors: error.errors});
             }
-            else
-                this.setState({errors: data.errors})
         }
     }
 
-    errorList(errors){
-        if(!errors.length)
+    //show errors list if there are any errors
+    errorList({errors}){
+        if(errors == null || !errors.length || errors == undefined)
             return;
-        return <ul className="error__list">
-            {errors.map((error, index) => {
-                return <li className="error__item" key={index}>{error}</li>
-            })}
-        </ul>
+        else {
+            console.log(123)
+            return <ul className="error__list">
+                {errors.map((error, index) => {
+                    return <li className="error__item" key={index}>{error}</li>
+                })}
+            </ul>
+        }
     }
 
     render(){
@@ -87,7 +106,7 @@ class RegisterScreen extends Component{
                     register__container--size 
                     register__container--theme">
                     <form method="post" className="register__form register__form--size">
-                        { this.errorList(this.state.errors)}
+                        { this.errorList(this.state)}
                         <input type="name" 
                                 id="register-name"
                                 className="register__input register__input--size" placeholder="Name"/>
@@ -112,4 +131,4 @@ class RegisterScreen extends Component{
     }
 }
 
-export default connect(mapStateToProps)(RegisterScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen);

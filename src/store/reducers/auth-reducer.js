@@ -11,10 +11,10 @@ let initialState = {
 function authReducer(state = initialState, action){
     switch (action.type){
         case ADD_USER_INFO : {
-            let { data } = action;
-            localStorage.setItem('user', JSON.stringify(data.user));
-            localStorage.setItem('token', data.token);
-            return Object.assign(state, {...data})
+            let { user, token } = action.data;
+            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('token', token);
+            return Object.assign({}, state, {...action.data})
         }
         case REMOVE_USER_INFO: {
             localStorage.removeItem('user');
