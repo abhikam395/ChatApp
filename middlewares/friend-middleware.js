@@ -2,7 +2,7 @@ let { errorResponse } = require('./../utils/response');
 
 module.exports.followMiddleware = function(){
     return function(req, res, next){
-        console.log(2)
+        console.log(req.body)
         let { followerId, followeeId } = req.body;
         console.log(req.body)
 

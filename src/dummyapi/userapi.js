@@ -1,5 +1,4 @@
-import store from './../store';
-import { addUsers } from './../store/actions/user-actions';
+import base from './../config/base.json';
 
 const users = [
     {id: 1, name: 'Gurpreet'},
@@ -16,10 +15,11 @@ const response = {
     users: users,
 };
 
-export function fetchUsers(token){
-    let { status } = response;
-    if(status == 'ok')
-        store.dispatch(addUsers(response))
-    else
-        store.dispatch(addUsers({status: 'error', errors: []}))
+export function fetchUsers(token, userId){ 
+    return fetch(base.url + `/users/${userId}`, {
+        query: {
+            id: userId
+        }
+    })
+        .then(res => res.json());
 }

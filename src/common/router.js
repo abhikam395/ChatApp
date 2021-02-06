@@ -10,10 +10,13 @@ export default function router(){
     return (
         <Switch>
             <Suspense fallback={<div>Loading...</div>}>
-                <Route path="/login" component={LoginScreen}/>
+                <Route path="/login" exact component={LoginScreen}/>
                 <Route path="/register" component={RegisterScreen}/>
                 <Route path="/chat" component={ChatAreaScreen}/>
-                <Route path="/*" exact component={HomeScreen}/>
+                <Route path="/*" component={HomeScreen}/>
+                {/* <Route path="*" render={() => {
+                    return <h1>Route not found</h1>
+                }}/> */}
             </Suspense>
         </Switch>
     )

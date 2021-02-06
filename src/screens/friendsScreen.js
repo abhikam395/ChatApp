@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import './friends.scss';
 
+import { addFriendList } from './../store/actions/friend-actions';
+
 import { connect } from 'react-redux';
-import { fetchFriendList } from './../dummyapi/friendsapi';
+import { getFriendList } from './../dummyapi/friendsapi';
 import FriendComponent from './../components/friendComponent';
 
-const mapStateToProps = function(state){
+let mapDispatchToProps = function(dispatch){
+    return {
+        addFriends(data){
+            dispatch(addFriendList(data))
+        } 
+    }
+}
+
+let mapStateToProps = function(state){
     return {
         friends: state.friendsState.friends
     }
@@ -22,7 +32,17 @@ class FriendsScreen extends Component{
 
     componentDidMount(){
         let user = JSON.parse(this.state.user);
-        fetchFriendList(user.id)
+        getFriendList(user.id)
+            .then(response => {
+                let { status } = response;
+                let { addFriends } = this.props;
+                if(status == 'ok')
+                    addFriends(response)
+                else throw response;
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     }
 
     getFriendsList(friends){
@@ -42,4 +62,4 @@ class FriendsScreen extends Component{
     }
 }
 
-export default connect(mapStateToProps)(FriendsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(FriendsScreen);

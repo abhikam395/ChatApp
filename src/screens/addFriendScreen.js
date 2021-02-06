@@ -6,8 +6,17 @@ import UserComponent from './../components/userComponent';
 
 import { connect } from 'react-redux';
 import { fetchUsers } from './../dummyapi/userapi';
+import { addUsers } from './../store/actions/user-actions';
 
-const mapStateToProps = (state) => {
+const mapDispatchToProps = function (dispatch){
+    return {
+        addUsers(data){
+            dispatch(addUsers(data))
+        }
+    }
+}
+
+const mapStateToProps = function(state){
     return {
         users: state.userState.users
     };
@@ -19,17 +28,30 @@ class AddFriendScreen extends Component{
         super(props);
         this.state = {
             token: localStorage.getItem('token'),
+            user: JSON.parse(localStorage.getItem('user')),
             users: this.props.users
         }
     }
 
     componentDidMount(){
-        let { token } = this.state;
-        fetchUsers(token);
+        let { token, user } = this.state;
+        fetchUsers(token, user.id)
+            .then(response => {
+                let {status}  = response;
+                let { addUsers } = this.props;
+                if(status){
+                    addUsers(response);
+                    this.setState({users: this.props.users})
+                }
+                else throw {};    
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
     }
 
     getUserList(users){
-        if(!users.length)
+        if(users == null || !users.length)
             return <div>Users not found</div>
         return users.map((user) => {
             return <UserComponent key={user.id} user={user}/>
@@ -71,4 +93,4 @@ class AddFriendScreen extends Component{
     }
 }
 
-export default connect(mapStateToProps)(AddFriendScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(AddFriendScreen);

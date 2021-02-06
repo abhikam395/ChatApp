@@ -6,6 +6,7 @@ var { userSearch } = require('./../middlewares/user-middleware');
 var { chatMiddleware } = require('./../middlewares/chat-middleware');
 var Group = require('./../models').Group;
 var Chat = require('./../models').Chat;
+var Friends = require('./../models').Friends
 
 const USER_FETCHED_MESSAGE = 'User fetched';
 const USERS_NOT_FOUND_MESSAGE = 'Users not found';
@@ -13,17 +14,37 @@ const USER_FOUND_MESSAGE = 'User found';
 const USER_NOT_FOUND_MESSAGE = 'User not found';
 
 //get users
-router.get('/', async function(req, res, next) {
-  const users = await User.findAll({
-    attributes: ['id', 'name', 'email', 'createdAt']
-  });
-  if(users){
-    res.status(200).json({
-      status: 'ok',
-      users: users
+router.get('/:id', async function(req, res, next) {
+  let { id } = req.params;
+  let followeeList = null, list;
+  try {
+    followeeList = await Friends.findAll({
+      attributes: ['followeeId'],
+      where: {
+        followerId: id
+      }
     })
-  }
-  else{
+    if(followeeList){
+      list = followeeList.map((followee) => followee.followeeId);
+    }
+    else throw {};
+    users = await User.findAll({
+      attributes: ['id', 'name', 'email', 'createdAt'],
+      where: {
+        id:{
+          [Op.notIn]: list
+        }
+      }
+    });
+    if(users){
+      res.status(200).json({
+        status: 'ok',
+        users: users
+      })
+    }
+    // else throw {};
+  } catch (error) {
+    console.log(error)
     res.status(404).json({
       status: 'error',
       code: 'UserNotFound',
@@ -34,27 +55,28 @@ router.get('/', async function(req, res, next) {
 
 router.get('/search', userSearch(), async function(req, res, next){
   let { name } = req.query;
-  const users = await User.findAll({
-    attributes: ['id', 'name', 'email'],
-    where: {
-      name: {
-        [Op.like]: `${name}%`
+  let users = null; 
+  try {
+    users = await User.findAll({
+      attributes: ['id', 'name', 'email'],
+      where: {
+        name: {
+          [Op.like]: `${name}%`
+        }
       }
+    })
+    if(users){
+      res.status(200).json({
+        status: 'ok',
+        users: users
+      })
     }
-  })
-
-  if(users.length > 0){
-    res.status(200).json({
-      status: 'ok',
-      users: users
-    })
-  }
-  else{
-    res.status(404).json({
-      status: 'ok',
-      code: 'UserNotFound',
-      message: 'User not found'
-    })
+  } catch (error) {
+      res.status(404).json({
+        status: 'ok',
+        code: 'UserNotFound',
+        message: 'User not found'
+      })
   }
 });
 
@@ -63,20 +85,20 @@ router.get('/search', userSearch(), async function(req, res, next){
  */
 router.get('/:id/friends', async function(req, res, next){
   let { id } = req.params;
-  const user = await User.findOne({
-    where: {
-      id: id
-    },
-  });
-  if(user){
-    let friends = await user.getFriends();
-    friends = friends.map(friend => {return {id: friend.id, name: friend.name, email: friend.email }})
-    res.status(200).json({
-      status: 'ok',
-      friends: friends
-    })
-  }
-  else{
+  let user = null;
+  try {
+    user = await User.findOne({
+      where: { id: id },
+    });
+    if(user){
+      let friends = await user.getFriends();
+      friends = friends.map(friend => {return {id: friend.id, name: friend.name, email: friend.email }})
+      res.status(200).json({
+        status: 'ok',
+        friends: friends
+      })
+    }
+  } catch (error) {
     res.status(404).json({
       status: 'error',
       code: 'NotFound',
@@ -89,7 +111,9 @@ router.get('/:id/friends', async function(req, res, next){
 // get chats
 router.get('/:id/chats', chatMiddleware(), async function(req, res){
     let { senderId, receiverId} = req.query;
-    const group = await Group.findOne({
+    let group = null;
+    try {
+      group = await Group.findOne({
         attributes: [],
         where: {
             [Op.or]: [
@@ -119,18 +143,18 @@ router.get('/:id/chats', chatMiddleware(), async function(req, res){
             ],
         }],
     });
-
-    if(group){
+      if(group){
         res.status(200).json({
             status: 'ok',
             chats: group.chats
         })
-    }
-    else 
-        res.status(404).json({
-            status: 'ok',
-            message: 'Group not found'
-        })
+      }
+    } catch (error) {
+      res.status(404).json({
+        status: 'ok',
+        message: 'Group not found'
+    })
+  }
 })
 
 // get last chats

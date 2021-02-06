@@ -1,5 +1,6 @@
 import store from './../store';
 import { addOnlineFriends, addFriendList } from './../store/actions/friend-actions';
+import base from './../config/base.json';
 
 const friends = [
     {id: 1, name: 'John', profile: ''},
@@ -16,14 +17,9 @@ const response = {
     friends: friends,
 }
 
-export function fetchFriendList(userId){
-    let { status } = response;
-    if(status == 'ok'){
-        store.dispatch(addFriendList(response));
-    }
-    else{
-        store.dispatch(addFriendList({status: 'error', error: [] }));
-    }
+export function getFriendList(id){ 
+    return fetch(base.url + `/users/${id}/friends`)
+        .then(res => res.json());
 }
 
 export function fetchOnlineFriendList(user){
